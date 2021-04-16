@@ -1,13 +1,37 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { Button } from 'react-native';
+import { Platform, StatusBar, StyleSheet, Text, View, SafeAreaView, TextInput} from 'react-native';
+import DialogAndroid from 'react-native-dialogs';
+import prompt from "react-native-prompt-android";
 
 export default function App() {
+
+  const [toDoList,setToDoList] = useState([]);
+  const [currentNewTask, setNewTask] = useState('');
+  const alertName = "New task", alertContent = "Tap the name of the new task below";
+  
+  let renderOfTheTasks;
+
+  React.useEffect(() => {
+    renderOfTheTasks = toDoList.map(text => <Text key = {text}>{text}</Text>)
+    console.log(renderOfTheTasks);
+  },[]);
+
+  const askForTheNewTask = () => {
+    let operand = toDoList;
+    operand.push(currentNewTask);
+    setToDoList(operand);
+    console.log(toDoList);
+  };
+
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <SafeAreaView style={styles.container}>
+      <TextInput onChangeText = {text => setNewTask(text)} style = {styles.input} />
+      <Button title = "New task" onPress = {() => {askForTheNewTask();}}/>
+      {renderOfTheTasks}
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -17,5 +41,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   },
+  input: {
+    height: 40,
+    margin: 12,
+    width: 200,
+    borderWidth: 1
+  }
 });
