@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-    width: 400
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
   },
   input: {
     height: 40,
@@ -29,8 +28,12 @@ const styles = StyleSheet.create({
   button: {
     marginBottom: 24,
     fontSize: 15,
-    width: 200
+    width: 100
   }, 
+  smallButton: {
+    width: 40,
+    fontSize: 12
+  },
   text: {
     textAlign: "center",
     fontSize: 14,
