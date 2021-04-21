@@ -28,20 +28,30 @@ const styles = StyleSheet.create({
   button: {
     marginBottom: 24,
     fontSize: 15,
-    width: 100
+    width: 100,
+    marginLeft: "auto",
+    marginRight: "auto"
   }, 
-  smallButton: {
-    width: 40,
-    fontSize: 12
+  smallButtonContainer: {
+    width: "20%",
+    marginTop: 7,
+    marginBottom: 7
   },
+  smallButton: {
+    fontSize: 14
+  }, 
   text: {
     textAlign: "center",
     fontSize: 14,
     borderWidth: 1,
     borderRadius: 5,
     marginTop: 7,
-    padding: 7,
-    width: 220,
+    width: "60%",
+    marginRight: 7,
+    padding: 7
+  },
+  thingContainer: {
+    flexDirection: "row",
     marginLeft: "auto",
     marginRight: "auto"
   }

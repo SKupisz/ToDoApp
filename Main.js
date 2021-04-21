@@ -43,10 +43,14 @@ export default class Main extends React.Component{
     render(){
         return  <View>
                  <TextInput onChangeText = {text => this.setNewTask(text)} style = {this.props.styles["input"]} ref = {this.inputRef} />
-        <Button title = "New task" onPress = {() => {this.askForTheNewTask();}} style = {this.props.styles.button}/>
-        {this.state.toDoList.map((text,index) => <View key = {"nr"+index}>
-            <Text key = {"text"+index} style = {this.props.styles.text}>{text}</Text>
-            <Button title = "❌" key = {"button"+index} onPress = {() => {this.getRidOfATask(index);}} style = {this.props.styles["smallButton"]}/>
+        <View style = {this.props.styles["button"]}>
+            <Button title = "New task" onPress = {() => {this.askForTheNewTask();}}/>
+        </View>
+        {this.state.toDoList.map((text,index) => <View key = {"nr"+index} style = {this.props.styles["thingContainer"]}>
+            <Text key = {"text"+index} style = {this.props.styles["text"]}>{text}</Text>
+            <View style = {this.props.styles["smallButtonContainer"]}>
+                <Button title = "❌" key = {"button"+index} onPress = {() => {this.getRidOfATask(index);}} style = {this.props.styles["smallButton"]}/>
+            </View>
         </View>)}
         <StatusBar style="auto" />
         </View>;
