@@ -1,5 +1,5 @@
 import React from "react";
-import {View, TextInput,Button,StatusBar, Text, Vibration} from "react-native";
+import {ScrollView, View, TextInput,Button,StatusBar, Text, Vibration, Pressable} from "react-native";
 
 export default class Main extends React.Component{
     constructor(props){
@@ -9,11 +9,13 @@ export default class Main extends React.Component{
 
         this.state = {
             currentNewTask: "",
-            toDoList: []
+            toDoList: [],
+            ifVibrate: true
         };
 
         this.setNewTask = this.setNewTask.bind(this);
         this.getRidOfATask = this.getRidOfATask.bind(this);
+        this.changeTheRigntone = this.changeTheRigntone.bind(this);
     }
 
     setNewTask(text){
@@ -24,7 +26,9 @@ export default class Main extends React.Component{
     askForTheNewTask(){
         let operand = this.state.toDoList;
         operand.push(this.state.currentNewTask);
-        Vibration.vibrate(500);
+        if(this.state.ifVibrate === true){
+            Vibration.vibrate(500);
+        }
         this.setState({
             toDoList: operand,
             currentNewTask: ""
@@ -32,16 +36,24 @@ export default class Main extends React.Component{
     }
     getRidOfATask(index){
         let operand = this.state.toDoList;
-        operand = operand.filter(function(value){
-            return value !== operand[index];
+        operand = operand.filter(function(value, ind){
+            return ind !== index;
         });
         this.setState({
             toDoList: operand
-        }, () => {Vibration.vibrate(700);});
+        }, () => {if(this.state.ifVibrate === true){Vibration.vibrate(700);}});
+    }
+    changeTheRigntone(){
+        this.setState({
+            ifVibrate: !this.state.ifVibrate
+        }, () => {});
     }
 
     render(){
-        return  <View>
+        return  <ScrollView>
+                <Pressable style = {this.props.styles["vibrationButton"]} onPress = {() => {this.changeTheRigntone()}}>
+                    <Text>{this.state.ifVibrate ? "🔈" : "🔇"}</Text>
+                </Pressable>
                  <TextInput onChangeText = {text => this.setNewTask(text)} style = {this.props.styles["input"]} ref = {this.inputRef} />
         <View style = {this.props.styles["button"]}>
             <Button title = "New task" onPress = {() => {this.askForTheNewTask();}}/>
@@ -53,6 +65,6 @@ export default class Main extends React.Component{
             </View>
         </View>)}
         <StatusBar style="auto" />
-        </View>;
+        </ScrollView>;
     }
 }
